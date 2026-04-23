@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <?!= include('style'); ?>
+  <style>
+    .result-card { background: #f0f4ff; padding: 30px; border-radius: 16px; text-align: center; margin: 20px 0; border: 1px solid #d0d7de; }
+    .category-badge { display: inline-block; padding: 8px 16px; background: var(--primary); color: white; border-radius: 20px; font-weight: 600; margin-bottom: 15px; }
+    .score-value { display: block; font-size: 48px; font-weight: 700; color: var(--primary); }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 25px 0; }
+    .stat-item { background: white; padding: 15px; border-radius: 12px; border: 1px solid #eee; text-align: center; }
+    .stat-item label { display: block; font-size: 12px; color: #666; margin-bottom: 5px; }
+    .stat-item .value { font-weight: 600; color: var(--text); }
+    .recommendations { background: #fffcf0; padding: 25px; border-radius: 16px; border: 1px solid #ffeeba; }
+    .recommendations h2 { font-size: 18px; margin-bottom: 15px; color: #856404; }
+    .recommendations ul { padding-left: 20px; }
+    .recommendations li { margin-bottom: 10px; color: #856404; }
+  </style>
+</head>
+<body>
+  <div id="app" class="fade-in">
+    <div class="container">
+      <header class="form-header">
+        <span class="badge" style="background: var(--success)">Risultati Analisi</span>
+        <h1>Il Tuo Profilo Circadiano</h1>
+        <p>Ciao <?= data.name ?>, ecco cosa abbiamo scoperto sul tuo ritmo biologico.</p>
+      </header>
+
+      <div class="result-card">
+        <div class="category-badge"><?= data.category ?></div>
+        <div class="score-display">
+          <span class="score-value"><?= data.score ?></span>
+          <span class="score-label">Punteggio Cronotipo</span>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <label>Midpoint Sonno (Lavoro)</label>
+          <div class="value"><?= data.msw ?></div>
+        </div>
+        <div class="stat-item">
+          <label>Midpoint Sonno (Libero)</label>
+          <div class="value"><?= data.msf ?></div>
+        </div>
+        <div class="stat-item">
+          <label>Social Jetlag</label>
+          <div class="value"><?= data.socialJetlag ?> ore</div>
+        </div>
+      </div>
+
+      <div class="recommendations">
+        <h2>Consigli Personalizzati</h2>
+        <ul>
+          <? data.recommendations.forEach(function(rec) { ?>
+            <li><?= rec ?></li>
+          <? }); ?>
+        </ul>
+      </div>
+
+      <div class="form-footer" style="text-align: center; margin-top: 30px;">
+        <p class="small" style="color: #666; font-size: 13px;">I dati sono stati salvati correttamente. Grazie per aver partecipato!</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
