@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <?!= include('style'); ?>
+</head>
+<body>
+  <div id="app" class="fade-in">
+    <div class="container">
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      
+      <form id="chronotypeForm">
+        <!-- Step 1: Benvenuto & Info Base -->
+        <div class="step active" data-step="1">
+          <header class="form-header">
+            <span class="badge">Salute & Benessere</span>
+            <h1>Ottimizza il tuo Ritmo Circadiano</h1>
+            <p>Un questionario premium per scoprire il tuo cronotipo e ricevere consigli personalizzati.</p>
+          </header>
+          
+          <div class="field-group">
+            <label for="name">Nome Completo</label>
+            <input type="text" id="name" name="name" placeholder="Inserisci il tuo nome" required>
+          </div>
+          
+          <div class="field-row">
+            <div class="field-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="nome@esempio.it" required>
+            </div>
+            <div class="field-group">
+              <label for="age">Età</label>
+              <input type="number" id="age" name="age" min="18" max="100" required>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>Sesso</label>
+            <div class="radio-cards">
+              <label class="radio-card">
+                <input type="radio" name="sex" value="Maschio" required>
+                <span>Maschio</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="sex" value="Femmina">
+                <span>Femmina</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="sex" value="Altro">
+                <span>Altro</span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="form-footer">
+            <button type="button" class="btn btn-primary next-btn">Inizia il test</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Lavoro e Abitudini -->
+        <div class="step" data-step="2">
+          <header class="form-header">
+            <h2>Il tuo Stile di Vita</h2>
+            <p>Analizziamo come le tue giornate influenzano il tuo riposo.</p>
+          </header>
+
+          <div class="field-group">
+            <label for="jobType">Tipo di Occupazione</label>
+            <select id="jobType" name="jobType" required>
+              <option value="">Seleziona...</option>
+              <option value="Ufficio standard">Ufficio (9-18)</option>
+              <option value="Freelance / Flessibile">Freelance / Flessibile</option>
+              <option value="Studente">Studente</option>
+              <option value="Turnista">Turnista</option>
+              <option value="Altro">Altro</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label>Svolgi turni di lavoro?</label>
+            <div class="radio-cards">
+              <label class="radio-card">
+                <input type="radio" name="shiftWorker" value="No" checked>
+                <span>No</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="shiftWorker" value="Sì">
+                <span>Sì</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="stressLevel">Livello di stress percepito (1-10)</label>
+            <input type="range" id="stressLevel" name="stressLevel" min="1" max="10" value="5" class="slider">
+            <div class="range-labels"><span>Rilassato</span><span>Molto stressato</span></div>
+          </div>
+
+          <div class="form-footer">
+            <button type="button" class="btn btn-secondary prev-btn">Indietro</button>
+            <button type="button" class="btn btn-primary next-btn">Prosegui</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Giorni Lavorativi -->
+        <div class="step" data-step="3">
+          <header class="form-header">
+            <h2>Giorni Lavorativi</h2>
+            <p>Orari tipici durante la tua settimana lavorativa.</p>
+          </header>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="sleepWorkBedtime">A che ora vai a letto?</label>
+              <input type="time" id="sleepWorkBedtime" name="sleepWorkBedtime" required>
+            </div>
+            <div class="field-group">
+              <label for="sleepWorkLightsOff">A che ora spegni le luci?</label>
+              <input type="time" id="sleepWorkLightsOff" name="sleepWorkLightsOff" required>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="sleepWorkLatency">Quanto tempo impieghi ad addormentarti? (minuti)</label>
+            <input type="number" id="sleepWorkLatency" name="sleepWorkLatency" min="0" value="15">
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="sleepWorkWakeTime">A che ora ti svegli?</label>
+              <input type="time" id="sleepWorkWakeTime" name="sleepWorkWakeTime" required>
+            </div>
+            <div class="field-group">
+              <label for="sleepWorkGetUpTime">A che ora ti alzi dal letto?</label>
+              <input type="time" id="sleepWorkGetUpTime" name="sleepWorkGetUpTime" required>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <button type="button" class="btn btn-secondary prev-btn">Indietro</button>
+            <button type="button" class="btn btn-primary next-btn">Prosegui</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Giorni Liberi -->
+        <div class="step" data-step="4">
+          <header class="form-header">
+            <h2>Giorni Liberi</h2>
+            <p>Come cambia il tuo sonno quando non hai impegni lavorativi.</p>
+          </header>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="sleepFreeBedtime">A che ora vai a letto?</label>
+              <input type="time" id="sleepFreeBedtime" name="sleepFreeBedtime" required>
+            </div>
+            <div class="field-group">
+              <label for="sleepFreeLightsOff">A che ora spegni le luci?</label>
+              <input type="time" id="sleepFreeLightsOff" name="sleepFreeLightsOff" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="sleepFreeWakeTime">A che ora ti svegli?</label>
+              <input type="time" id="sleepFreeWakeTime" name="sleepFreeWakeTime" required>
+            </div>
+            <div class="field-group">
+              <label for="sleepFreeGetUpTime">A che ora ti alzi dal letto?</label>
+              <input type="time" id="sleepFreeGetUpTime" name="sleepFreeGetUpTime" required>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <button type="button" class="btn btn-secondary prev-btn">Indietro</button>
+            <button type="button" class="btn btn-primary next-btn">Ultimo Step</button>
+          </div>
+        </div>
+
+        <!-- Step 5: Dettagli Extra e Invio -->
+        <div class="step" data-step="5">
+          <header class="form-header">
+            <h2>Dettagli Finali</h2>
+            <p>Pochi ultimi dati per affinare il risultato.</p>
+          </header>
+
+          <div class="field-group">
+            <label>Come ti consideri?</label>
+            <select name="subjectiveChronotype" required>
+              <option value="Mattutino estremo">Allodola (Mattutino estremo)</option>
+              <option value="Moderatamente mattutino">Mattutino moderato</option>
+              <option value="Neutro">Intermedio / Neutro</option>
+              <option value="Moderatamente serotino">Serotino moderato</option>
+              <option value="Serotino estremo">Gufo (Serotino estremo)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label>Qualità del sonno percepita</label>
+            <div class="radio-cards">
+              <label class="radio-card"><input type="radio" name="sleepQuality" value="Ottima"><span>Ottima</span></label>
+              <label class="radio-card"><input type="radio" name="sleepQuality" value="Buona" checked><span>Buona</span></label>
+              <label class="radio-card"><input type="radio" name="sleepQuality" value="Discreta"><span>Discreta</span></label>
+              <label class="radio-card"><input type="radio" name="sleepQuality" value="Povera"><span>Povera</span></label>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>Consumo di caffeina</label>
+            <select name="caffeine">
+              <option value="No">No</option>
+              <option value="Moderato (1-2 tazze)">Moderato (1-2 tazze)</option>
+              <option value="Sì, molto">Sì, molto (>3 tazze)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="notes">Note aggiuntive (opzionale)</label>
+            <textarea id="notes" name="notes" rows="3" placeholder="Scrivi qui eventuali osservazioni..."></textarea>
+          </div>
+
+          <div class="form-footer">
+            <button type="button" class="btn btn-secondary prev-btn">Indietro</button>
+            <button type="submit" class="btn btn-success" id="submitBtn">Calcola il mio Cronotipo</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="loadingOverlay" class="hidden">
+      <div class="spinner"></div>
+      <p>Analisi in corso...</p>
+    </div>
+  </div>
+
+  <?!= include('script'); ?>
+</body>
+</html>
