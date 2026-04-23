@@ -1,0 +1,78 @@
+<script>
+const form = document.getElementById('chronotypeForm');
+const steps = Array.from(document.querySelectorAll('.step'));
+const nextBtns = document.querySelectorAll('.next-btn');
+const prevBtns = document.querySelectorAll('.prev-btn');
+const progressBar = document.getElementById('progressBar');
+const loadingOverlay = document.getElementById('loadingOverlay');
+
+let currentStep = 1;
+
+function updateStep(stepNumber) {
+  steps.forEach(step => {
+    step.classList.remove('active');
+    if (parseInt(step.dataset.step) === stepNumber) {
+      step.classList.add('active');
+    }
+  });
+  const progress = (stepNumber / steps.length) * 100;
+  progressBar.style.width = progress + '%';
+  currentStep = stepNumber;
+}
+
+nextBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (validateStep(currentStep)) {
+      updateStep(currentStep + 1);
+    }
+  });
+});
+
+prevBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    updateStep(currentStep - 1);
+  });
+});
+
+function validateStep(step) {
+  const currentStepEl = document.querySelector(`.step[data-step="${step}"]`);
+  const inputs = currentStepEl.querySelectorAll('input[required], select[required]');
+  let valid = true;
+  inputs.forEach(input => {
+    if (!input.value) {
+      valid = false;
+      input.style.borderColor = 'red';
+    } else {
+      input.style.borderColor = '#ddd';
+    }
+  });
+  return valid;
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!validateStep(currentStep)) return;
+
+  loadingOverlay.classList.remove('hidden');
+  
+  const formData = {};
+  new FormData(form).forEach((value, key) => {
+    formData[key] = value;
+  });
+
+  google.script.run
+    .withSuccessHandler(response => {
+      if (response.success) {
+        window.top.location.href = response.dashboardUrl;
+      } else {
+        alert('Errore: ' + response.error);
+        loadingOverlay.classList.add('hidden');
+      }
+    })
+    .withFailureHandler(err => {
+      alert('Errore di sistema: ' + err);
+      loadingOverlay.classList.add('hidden');
+    })
+    .submitForm(formData);
+});
+</script>
